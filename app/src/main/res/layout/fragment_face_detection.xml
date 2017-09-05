@@ -1,0 +1,30 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="zonic.photoagog.fragments.FaceDetectionFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/tvfaceAlert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="It Is Taking Too Much Time \n You Should Either Retry Or Check Your Internet Connectivity"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/pbFace"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvFace"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>

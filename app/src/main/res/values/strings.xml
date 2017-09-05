@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Photo Agog</string>
+    <string name="facebook_app_id">1493111147436508</string>
+    <string name="fb_login_protocol_scheme">fb1493111147436508</string>
+
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="album_name">ORAI</string>
+    <string name="send">Send</string>
+    <string name="cancel">Cancel</string>
+    <string name="cloud_api_key">AIzaSyAWb7M2YuvJ6f0z3uCcanKYs0evNx-0h04</string>
+
+    <string name="title_activity_show_pic">ShowPicActivity</string>
+    <string name="image_picker_error">Something is wrong with that image. Pick a different one please.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ttsOn">Text To Speech Is Turned On</string>
+    <string name="ttsoff">Text To Speech Is Turned Off</string>
+    <string name="icOn">Internet Connectivity Is Turned On</string>
+    <string name="icOff">Intenet Connectivity Is Turned Off</string>
+</resources>

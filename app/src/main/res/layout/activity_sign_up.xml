@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="zonic.majorproject.Activity.SignUpActivity">
+
+
+    <com.github.florent37.materialtextfield.MaterialTextField
+        android:id="@+id/materialTextField2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:mtf_animationDuration="1000"
+        app:mtf_cardCollapsedHeight="4dp"
+        app:mtf_image="@drawable/password"
+        app:mtf_labelColor="@android:color/holo_red_dark"
+        app:mtf_openKeyboardOnFocus="true"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="27dp"
+        app:layout_constraintTop_toBottomOf="@+id/materialTextField1"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent">>
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColor="#333"
+            android:textColorHint="#666" />
+    </com.github.florent37.materialtextfield.MaterialTextField>
+
+    <com.github.florent37.materialtextfield.MaterialTextField
+        android:id="@+id/materialTextField1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:mtf_animationDuration="1000"
+        app:mtf_cardCollapsedHeight="4dp"
+        app:mtf_image="@drawable/mail"
+        app:mtf_labelColor="@android:color/holo_red_dark"
+        app:mtf_openKeyboardOnFocus="true"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textColor="#333"
+            android:textColorHint="#666" />
+    </com.github.florent37.materialtextfield.MaterialTextField>
+
+    <com.github.florent37.materialtextfield.MaterialTextField
+        android:id="@+id/materialTextField3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:mtf_animationDuration="1000"
+        app:mtf_cardCollapsedHeight="4dp"
+        app:mtf_image="@drawable/password"
+        app:mtf_labelColor="@android:color/holo_red_dark"
+        app:mtf_openKeyboardOnFocus="true"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/materialTextField2"
+        android:layout_marginTop="29dp"
+        app:layout_constraintTop_toBottomOf="@+id/materialTextField2"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/materialTextField2">
+
+
+        <EditText
+            android:id="@+id/etCnfPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:textColor="#333"
+            android:textColorHint="#666" />
+    </com.github.florent37.materialtextfield.MaterialTextField>
+
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/ripple2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:mrl_rippleAlpha="0.2"
+        app:mrl_rippleBackground="#FFFFFF"
+        app:mrl_rippleColor="#ff0000"
+        app:mrl_rippleDelayClick="true"
+        app:mrl_rippleDimension="10dp"
+        app:mrl_rippleDuration="350"
+        app:mrl_rippleFadeDuration="75"
+        app:mrl_rippleHover="true"
+        app:mrl_rippleOverlay="true"
+        app:mrl_ripplePersistent="false"
+        app:mrl_rippleRoundedCorners="0dp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="53dp"
+        app:layout_constraintTop_toBottomOf="@+id/materialTextField3"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <Button
+            android:id="@+id/btSubmit"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="106dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Submit >>" />
+    </com.balysv.materialripple.MaterialRippleLayout>
+
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/ripple3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialTextField3"
+        app:mrl_rippleAlpha="0.2"
+        app:mrl_rippleBackground="#FFFFFF"
+        app:mrl_rippleColor="#ff0000"
+        app:mrl_rippleDelayClick="true"
+        app:mrl_rippleDimension="10dp"
+        app:mrl_rippleDuration="350"
+        app:mrl_rippleFadeDuration="75"
+        app:mrl_rippleHover="true"
+        app:mrl_rippleOverlay="true"
+        app:mrl_ripplePersistent="false"
+        app:mrl_rippleRoundedCorners="0dp"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1">
+
+        <Button
+            android:id="@+id/btBack"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="106dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Back to Login Page" />
+    </com.balysv.materialripple.MaterialRippleLayout>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/containerAnalysis"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    tools:context=".activity.AnalysisActivity">
+
+    <Button
+        android:id="@+id/btData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="Upload"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/pbDataUpload"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right" />
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/bottomsheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorBackgroundFloating"
+        android:elevation="16dp"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:behavior_peekHeight="78dp"
+        app:layout_behavior="@string/view_pager_bottom_sheet_behavior">
+
+
+        <devlight.io.library.ntb.NavigationTabBar
+            android:id="@+id/ntb"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:layout_marginBottom="12dp"
+            app:ntb_active_color="#fff"
+            app:ntb_animation_duration="300"
+            app:ntb_badge_bg_color="#feffff"
+            app:ntb_badge_gravity="top"
+            app:ntb_badge_position="right"
+            app:ntb_badge_size="18sp"
+            app:ntb_badge_title_color="#ffffffff"
+            app:ntb_badge_use_typeface="true"
+            app:ntb_badged="true"
+            app:ntb_bg_color="#03fbd2"
+            app:ntb_corners_radius="0dp"
+            app:ntb_icon_size_fraction="0.5"
+            app:ntb_inactive_color="#000"
+            app:ntb_preview_colors="@array/colors"
+            app:ntb_scaled="true"
+            app:ntb_swiped="true"
+            app:ntb_tinted="true"
+            app:ntb_title_mode="all"
+            app:ntb_title_size="10sp"
+            app:ntb_titled="true" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/bottom_sheet_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
