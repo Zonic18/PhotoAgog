@@ -40,7 +40,7 @@ import zonic.photoagog.utils.BaseAlbumDirFactory;
 import zonic.photoagog.utils.FroyoAlbumDirFactory;
 
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity  {
 
     private static final int REQUEST_CODE_TAKE_PHOTO = 21;
     private static final int RESULT_LOAD_IMAGE = 211;
@@ -59,6 +59,7 @@ public class HomeActivity extends BaseActivity {
     private SharedPreferences settings;
     private boolean internetOn;
     private boolean ttsOn;
+    private Speakerbox speakerbox;
 
 
     @Override
@@ -100,6 +101,7 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
         settings = getSharedPreferences("settings", MODE_PRIVATE);
         showPreference();
+        speakerbox = new Speakerbox(getApplication());
 
 
         if (internetOn) {
@@ -109,10 +111,10 @@ public class HomeActivity extends BaseActivity {
         CardView cvSettings = (CardView) findViewById(R.id.cvSettings);
         CardView cvGallery = (CardView) findViewById(R.id.cvGallery);
         CardView cvCamera = (CardView) findViewById(R.id.cvCamera);
-        ImageView imgHistory= (ImageView) findViewById(R.id.imgHistory);
-        ImageView imgGallery= (ImageView) findViewById(R.id.imgGallery);
-        ImageView imgSettings= (ImageView) findViewById(R.id.imgSettings);
-        ImageView imgCamera= (ImageView) findViewById(R.id.imgCamera);
+        ImageView imgHistory = (ImageView) findViewById(R.id.imgHistory);
+        ImageView imgGallery = (ImageView) findViewById(R.id.imgGallery);
+        ImageView imgSettings = (ImageView) findViewById(R.id.imgSettings);
+        ImageView imgCamera = (ImageView) findViewById(R.id.imgCamera);
         Glide.with(this).load(R.drawable.camera).into(imgCamera);
         Glide.with(this).load(R.drawable.gallery).into(imgGallery);
         Glide.with(this).load(R.drawable.history).into(imgHistory);
@@ -125,7 +127,6 @@ public class HomeActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
@@ -143,6 +144,7 @@ public class HomeActivity extends BaseActivity {
                 }
             }
         });
+
 
         cvSettings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -270,6 +272,7 @@ public class HomeActivity extends BaseActivity {
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
     }
+
 
 
 }

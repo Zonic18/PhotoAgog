@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,6 +35,7 @@ import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
 import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
 import com.google.api.services.vision.v1.model.SafeSearchAnnotation;
+import com.mapzen.speakerbox.Speakerbox;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -70,6 +72,9 @@ public class SafeSearchDetectionFragment extends Fragment {
 
 
     private InteractionListener interaction;
+    private FloatingActionButton fabSafe;
+    private Speakerbox speakerbox;
+
 
     public SafeSearchDetectionFragment() {
         // Required empty public constructor
@@ -107,9 +112,11 @@ public class SafeSearchDetectionFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_safe_search_detection, container, false);
         data = (LinearLayout) view.findViewById(R.id.data);
+        fabSafe = (FloatingActionButton) view.findViewById(R.id.fabSpeakSafe);
         progressSafe = (ProgressBar) view.findViewById(R.id.progressSafe);
         tvAdult = (TextView) view.findViewById(R.id.scoreAdult);
         tvViolence = (TextView) view.findViewById(R.id.scoreViolence);
+        speakerbox = new Speakerbox(getActivity().getApplication());
         tvMedical = (TextView) view.findViewById(R.id.scoreMedical);
         tvSpoof = (TextView) view.findViewById(R.id.scoreSpoof);
         progressSafe.animate().setInterpolator(new AnticipateOvershootInterpolator()).setDuration(1000).translationYBy(250);
@@ -166,6 +173,15 @@ public class SafeSearchDetectionFragment extends Fragment {
                 data.setVisibility(View.VISIBLE);
                 progressSafe.setVisibility(View.GONE);
                 interaction.hasDataLoaded(true);
+                fabSafe.setVisibility(View.VISIBLE);
+                fabSafe.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        speakerbox.remix("VERY_UNLIKELY","very unlikely");
+                        speakerbox.remix("VERY_LIKELY","very likely");
+                        speakerbox.play("the content is "+safeSearchAnnotation.getAdult()+" adult");
+                                      }
+                });
             }
 
             @Override

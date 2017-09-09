@@ -1,10 +1,6 @@
 package zonic.photoagog.fragments;
 
 
-import android.app.ProgressDialog;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -20,11 +16,9 @@ import android.view.ViewGroup;
 import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
@@ -45,7 +39,6 @@ import java.util.List;
 import java.util.Locale;
 
 import zonic.photoagog.R;
-import zonic.photoagog.activity.AnalysisActivity;
 import zonic.photoagog.adapter.LabelAdapter;
 import zonic.photoagog.utils.PackageManagerUtils;
 
