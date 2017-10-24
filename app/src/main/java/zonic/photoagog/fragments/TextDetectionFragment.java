@@ -9,9 +9,11 @@ import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
@@ -32,10 +34,10 @@ import com.google.api.services.vision.v1.model.TextAnnotation;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Locale;
+import java.util.List;
 
 import zonic.photoagog.R;
-import zonic.photoagog.adapter.LabelAdapter;
+import zonic.photoagog.adapter.TextAdapter;
 import zonic.photoagog.utils.PackageManagerUtils;
 
 /**
@@ -53,7 +55,9 @@ public class TextDetectionFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mImageUri;
     private View view;
-    private TextAnnotation fullTextAnnotation;
+    private List<EntityAnnotation> textAnnotation;
+    private ProgressBar pbtext;
+    private RecyclerView rvtext;
 
 
     public TextDetectionFragment() {
@@ -90,8 +94,10 @@ public class TextDetectionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_text_dectecttion, container, false);
         uploadImage(Uri.parse(mImageUri));
+                view = inflater.inflate(R.layout.fragment_text_dectecttion, container, false);
+        pbtext = (ProgressBar) view.findViewById(R.id.pbtext);
+        rvtext = (RecyclerView) view.findViewById(R.id.rvText);
         return view;
     }
 
@@ -141,7 +147,12 @@ public class TextDetectionFragment extends Fragment {
         new AsyncTask<Object, Void, String>() {
             @Override
             protected void onPostExecute(String result) {
-
+                if (textAnnotation!=null&&textAnnotation.size()!=0){
+                    TextAdapter adapter=new TextAdapter(getActivity(),textAnnotation);
+                    rvtext.setLayoutManager(new LinearLayoutManager(getContext()));
+                    rvtext.setAdapter(adapter);
+                }
+                pbtext.setVisibility(View.GONE);
             }
 
             @Override
@@ -183,7 +194,7 @@ public class TextDetectionFragment extends Fragment {
                             // add the features we want
                             annotateImageRequest.setFeatures(new ArrayList<Feature>() {{
                                 Feature text_detection = new Feature();
-                                text_detection.setType("DOCUMENT_TEXT_DETECTION");
+                                text_detection.setType("TEXT_DETECTION");
                                 text_detection.setMaxResults(15);
                                 add(text_detection);
                             }});
@@ -214,7 +225,7 @@ public class TextDetectionFragment extends Fragment {
     }
 
     private String convertResponseToString(BatchAnnotateImagesResponse response) {
-        fullTextAnnotation = response.getResponses().get(0).getFullTextAnnotation();
+        textAnnotation = response.getResponses().get(0).getTextAnnotations();
 
         return null;
 

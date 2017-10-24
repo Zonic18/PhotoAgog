@@ -1,61 +1,39 @@
 package zonic.photoagog.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
+
+import com.daimajia.androidanimations.library.Techniques;
+import com.viksaa.sssplash.lib.activity.AwesomeSplash;
+import com.viksaa.sssplash.lib.cnst.Flags;
+import com.viksaa.sssplash.lib.model.ConfigSplash;
 
 import zonic.photoagog.R;
 
-public class SplashScreenActivity extends BaseActivity {
+public class SplashScreenActivity extends AwesomeSplash {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
-        final ImageView imageView = (ImageView) findViewById(R.id.imageView);
-        final Animation animation_1 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.rotate);
-        final Animation animation_2 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.antirotate);
-        final Animation animation_3 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.fade_out);
+    public void initSplash(ConfigSplash configSplash) {
+        configSplash.setBackgroundColor(R.color.background); //any color you want form colors.xml
+        configSplash.setAnimCircularRevealDuration(1500); //int ms
+        configSplash.setRevealFlagX(Flags.REVEAL_RIGHT);  //or Flags.REVEAL_LEFT
+        configSplash.setRevealFlagY(Flags.REVEAL_BOTTOM); //or Flags.REVEAL_TOP
 
-        imageView.startAnimation(animation_2);
-        animation_2.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
+        //Customize Logo
+        configSplash.setLogoSplash(R.drawable.app1); //or any other drawable
+        configSplash.setAnimLogoSplashDuration(1500); //int ms
+        configSplash.setAnimLogoSplashTechnique(Techniques.BounceInDown);
 
-            }
+        configSplash.setTitleSplash("Photo Agog");
+        configSplash.setTitleTextSize(30f); //float value
+        configSplash.setAnimTitleDuration(1500);
+        configSplash.setAnimTitleTechnique(Techniques.DropOut);
+    }
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                imageView.startAnimation(animation_1);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        animation_1.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                imageView.startAnimation(animation_3);
-                finish();
-                Intent myIntent = new Intent(getBaseContext(), HomeActivity.class);
-
-                startActivity(myIntent);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
+    @Override
+    public void animationsFinished() {
+        Intent intent=new Intent(SplashScreenActivity.this,HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

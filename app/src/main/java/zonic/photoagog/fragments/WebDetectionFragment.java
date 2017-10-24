@@ -41,7 +41,10 @@ import java.util.List;
 
 import zonic.photoagog.R;
 import zonic.photoagog.adapter.WebAdapter;
+import zonic.photoagog.adapter.WebLabelAdapter;
 import zonic.photoagog.utils.PackageManagerUtils;
+
+import static zonic.photoagog.R.id.rv;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,10 +64,11 @@ public class WebDetectionFragment extends Fragment {
     private String mImageUri;
     private View view;
     private WebDetection webDetection;
-    private List<WebEntity> fullMatchingImages;
+    private List<WebEntity> webEntities;
     private RecyclerView rvUrl;
     private List<WebImage> webImageList;
     private ProgressBar pbWeb;
+    private RecyclerView rvLabels;
 
 
     public WebDetectionFragment() {
@@ -108,6 +112,7 @@ public class WebDetectionFragment extends Fragment {
             e.printStackTrace();
         }
         rvUrl = (RecyclerView) view.findViewById(R.id.rvUrls);
+        rvLabels = (RecyclerView) view.findViewById(R.id.rvWebLabels);
         pbWeb = (ProgressBar) view.findViewById(R.id.pbWeb);
         pbWeb.animate().setInterpolator(new AnticipateOvershootInterpolator()).setDuration(1000).translationYBy(250);
         return view;
@@ -159,6 +164,15 @@ public class WebDetectionFragment extends Fragment {
         new AsyncTask<Object, Void, String>() {
             @Override
             protected void onPostExecute(String result) {
+                if (webEntities!=null&webEntities.size()!=0){
+                    WebLabelAdapter adapter=new WebLabelAdapter(getActivity(),webEntities);
+                    rvLabels.setLayoutManager(new LinearLayoutManager(getContext()));
+                    rvLabels.setAdapter(adapter);
+                }
+                else{
+                    Toast.makeText(getActivity(), "huh?", Toast.LENGTH_SHORT).show();
+                }
+
                 if (webImageList!=null&&webImageList.size()!=0){
                 WebAdapter adapter=new WebAdapter(getActivity(),webImageList);
                 rvUrl.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -243,14 +257,14 @@ public class WebDetectionFragment extends Fragment {
     private String convertResponseToString(BatchAnnotateImagesResponse response)
     {
         webDetection = response.getResponses().get(0).getWebDetection();
-        if (webDetection.containsKey("fullMatchingImages")) {
+        if (webDetection.containsKey("webEntities")) {
             List<WebImage> fullMatchingImages = webDetection.getFullMatchingImages();
            //get string here
         }
         webImageList = webDetection.getFullMatchingImages();
-        this.fullMatchingImages = webDetection.getWebEntities();
+        webEntities = webDetection.getWebEntities();
         try {
-            return this.fullMatchingImages.get(0).getDescription();
+            return this.webEntities.get(0).getDescription();
         } catch (Exception e) {
         }
         return null;

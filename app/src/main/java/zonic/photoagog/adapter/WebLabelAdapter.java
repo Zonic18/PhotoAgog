@@ -3,7 +3,6 @@ package zonic.photoagog.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,41 +11,41 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.api.services.vision.v1.model.WebEntity;
-import com.google.api.services.vision.v1.model.WebImage;
 
 import java.util.List;
+import java.util.Locale;
 
 import zonic.photoagog.R;
 
 /**
- * Created by maithani on 04-09-2017.
+ * Created by maithani on 09-09-2017.
  */
 
-public class WebAdapter extends RecyclerView.Adapter<WebAdapter.WebHolder> {
+public class WebLabelAdapter extends RecyclerView.Adapter<WebLabelAdapter.LabelHolder> {
     Activity activity;
-    List<WebImage> urlList;
+    List<WebEntity> list;
 
-    public WebAdapter(Activity activity, List<WebImage> urlList) {
+    public WebLabelAdapter(Activity activity, List<WebEntity> list) {
         this.activity = activity;
-        this.urlList = urlList;
+        this.list = list;
     }
 
     @Override
-    public WebHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.web_detection, parent, false);
-        return new WebAdapter.WebHolder(view);
+    public LabelHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.labels_web, parent, false);
+        return new WebLabelAdapter.LabelHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(WebHolder holder, int position) {
-        final WebImage webImage = urlList.get(position);
-        holder.tvUrl.setText(webImage.getUrl());
-        holder.tvScore.setText(String.valueOf(webImage.getScore()));
-        holder.tvUrl.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(LabelHolder holder, int position) {
+        final WebEntity entity=list.get(position);
+        holder.tvLabel.setText(entity.getDescription());
+        holder.tvScore.setText(String.format(Locale.US,"%.2f",entity.getScore()));
+        holder.tvLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openWebPage("https://www.google.com/search?q=+" +
-                        webImage.getUrl()  +
+                        entity.getDescription()  +
                         "+logos&tbm=isch");
             }
         });
@@ -65,19 +64,19 @@ public class WebAdapter extends RecyclerView.Adapter<WebAdapter.WebHolder> {
 
     @Override
     public int getItemCount() {
-        return urlList.size();
+        return list.size();
     }
 
-    public class WebHolder extends RecyclerView.ViewHolder{
+    public class LabelHolder extends RecyclerView.ViewHolder{
 
-        public final TextView tvUrl;
+        public final TextView tvLabel;
         public final TextView tvScore;
 
-        public WebHolder(View itemView) {
+        public LabelHolder(View itemView) {
             super(itemView);
-            tvUrl = (TextView) itemView.findViewById(R.id.tvUrl);
-            tvScore = (TextView) itemView.findViewById(R.id.tvScore);
-
+            tvLabel = (TextView) itemView.findViewById(R.id.tvLabelWeb);
+            tvScore = (TextView) itemView.findViewById(R.id.tvLabelScore);
         }
     }
+
 }
