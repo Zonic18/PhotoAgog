@@ -1,6 +1,8 @@
 package zonic.photoagog.fragments;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -63,6 +65,7 @@ public class LabelDetectionFragment extends Fragment {
     private ProgressBar pbLoader;
     private RecyclerView rvLabel;
     private TextView tvAlert;
+    private SharedPreferences settings;
 
 
     public LabelDetectionFragment() {
@@ -102,6 +105,7 @@ public class LabelDetectionFragment extends Fragment {
         rvLabel = (RecyclerView) view.findViewById(R.id.rvLabel);
         pbLoader = (ProgressBar) view.findViewById(R.id.pbLoader);
         tvAlert = (TextView) view.findViewById(R.id.tvAlert);
+        settings=getContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
         uploadImage(Uri.parse(mImageUri));
         pbLoader.animate().setInterpolator(new AnticipateOvershootInterpolator()).setDuration(1000).translationYBy(250);
         return view;
@@ -154,7 +158,8 @@ public class LabelDetectionFragment extends Fragment {
             @Override
             protected void onPostExecute(String result) {
                 if (labels!=null&&labels.size()!=0){
-                LabelAdapter adapter=new LabelAdapter(getActivity(),labels);
+
+                    LabelAdapter adapter=new LabelAdapter(getActivity(),labels,settings);
                 rvLabel.setAdapter(adapter);
                 rvLabel.setLayoutManager(new LinearLayoutManager(getContext()));
                 }

@@ -7,13 +7,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.view.menu.ExpandedMenuView;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -21,6 +25,8 @@ import com.bumptech.glide.Glide;
 import com.google.common.io.LineReader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.lang.reflect.Array;
 
 import zonic.photoagog.R;
 
@@ -46,14 +52,34 @@ public class SettingsActivity extends BaseActivity {
         Glide.with(this)
                 .load(photoUrl)
                 .into(profileImage);
+        final SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
+        final SharedPreferences.Editor edit = settings.edit();
         TextView tvDisplayName = (TextView) findViewById(R.id.tvDisplayName);
         TextView tvEmail = (TextView) findViewById(R.id.tvEmail);
+        Spinner spinner= (Spinner) findViewById(R.id.spLanguages);
+        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.languages,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String[] array = getResources().getStringArray(R.array.languages);
+                edit.putString("language",array[position]);
+                edit.apply();
+                Snackbar snackbar=Snackbar.make(linearLayout,"selected language is "+array[position],Snackbar.LENGTH_LONG);
+                snackbar.show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         tvEmail.setText(email);
         tvDisplayName.setText(displayName);
         Switch switchTTs = (Switch) findViewById(R.id.switchTTs);
         Switch switchInternet = (Switch) findViewById(R.id.switchInternet);
-        final SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
-        final SharedPreferences.Editor edit = settings.edit();
+
         switchTTs.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

@@ -20,4 +20,11 @@
     <string name="ttsoff">Text To Speech Is Turned Off</string>
     <string name="icOn">Internet Connectivity Is Turned On</string>
     <string name="icOff">Intenet Connectivity Is Turned Off</string>
+    <string-array name="languages">
+        <item>English</item>
+        <item>Hindi</item>
+        <item>French</item>
+        <item>Spanish</item>
+        <item>Chinese</item>
+    </string-array>
 </resources>

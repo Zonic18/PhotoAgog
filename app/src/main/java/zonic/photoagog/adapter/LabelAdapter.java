@@ -2,6 +2,7 @@ package zonic.photoagog.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,9 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.google.api.services.vision.v1.model.EntityAnnotation;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 
+import java.io.PrintStream;
 import java.util.List;
 import java.util.Locale;
 
@@ -25,9 +29,11 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.Holder> {
 
     Activity activity;
     List<EntityAnnotation> lableList;
+    String lang;
 
-    public LabelAdapter(Activity activity, List<EntityAnnotation> lableList) {
+    public LabelAdapter(Activity activity, List<EntityAnnotation> lableList, SharedPreferences settings) {
         this.activity = activity;
+        lang = settings.getString("language", "English");
         this.lableList = lableList;
     }
 
@@ -42,9 +48,18 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.Holder> {
     public void onBindViewHolder(Holder holder, int position) {
         EntityAnnotation label = lableList.get(position);
         holder.tvScore.setText(String.valueOf((int) Math.ceil(label.getScore()*100))+"%");
-        holder.tvLabelName.setText(label.getDescription());
+        holder.tvLabelName.setText(translateText(label.getDescription()));
         holder.pbScore.setProgress((int) Math.ceil(label.getScore()*100));
         //holder.pbScore.setProgress(Integer.parseInt(String.valueOf(label.getScore())));
+
+    }
+    public String translateText(String sourceText) {
+
+        TranslateOptions options=TranslateOptions.newBuilder().setApiKey(String.valueOf(R.string.cloud_api_key)).build();
+        Translate translate= (Translate) options.getService();
+        final Translation translation=translate.translate(sourceText,Translate.TranslateOption.targetLanguage(lang));
+        return translation.getTranslatedText();
+
 
     }
 
